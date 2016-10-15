@@ -66,6 +66,9 @@ Other parameters that can be used, which will affect the header of the ERG or MR
 |`description:` | "A description"|
 |`fileName:` | "blah.mrc"| 
 
+## Note
+The DSL is actually Ruby code, so you should avoid using words such as "if", "while", "for", "def" and "end".
+
 ## Example
 
 As a warm-up, the following example  ramps up from 40 to 80% FTP power over 8 minutes, followed by 60 seconds at 35% power, two 20 second sprints at 150% FTP with 40 second rest, and another minute at 35%. The main session then starts with  a 3 minute isolated leg interval session, before jumping into three sets of high RPM work (varying between 100 and 110 rpm) at 80-85% FTP, with a two minute rest between sets. Finally, there's a 10 minute cool down, ramping from 70 to 40% FTP.

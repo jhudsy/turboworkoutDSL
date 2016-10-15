@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <script type="text/javascript" src="http://cdn.opalrb.org/opal/current/opal.min.js"></script>
+<script type="text/javascript" src="http://cdn.opalrb.org/opal/current/opal-parser.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- JS File -->
+<script type="text/javascript" src="tomrc.js"> </script>
+<script>
+$(document).ready(function(){
+Opal.load('opal-parser')
+$("#button").click(function(){
+  $("#output").val(Opal.eval($("#input").val()));
+})
+});
+</script>
+</head>
+<body>
+<table width="100%">
+<col width="70%">
+<col width="30%">
+<tr>
+<td> Input: </td> <td> Output: </td></tr>
+<tr>
+<td>
+<textarea id="input" rows="15" style="width:100%" >
+</textarea>
+</td>
+<td>
+<textarea id="output" rows="15" style="width:100%" readonly >
+</textarea>
+</td>
+</tr>
+</table>
+<br/>
+Click here to generate output: <button type="button" id="button">Create ERG/MRC</button>
+</body>
+</html>

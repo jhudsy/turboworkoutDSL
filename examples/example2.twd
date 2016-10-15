@@ -1,0 +1,27 @@
+rest=steady duration: 60, power: 35
+
+sprint=interval([steady(duration: 20,power: 105),
+                 steady(duration: 40,power: 35)])
+
+warmup=interval([ramp(duration: 480,start:40,finish:80),
+                 steady(duration: 60, power: 40),
+                 repeat(sprint,3),
+                 rest])
+        
+base=steady duration: 60,power:85
+base2=repeat(base,2)
+base3=repeat(base,3)
+
+plusgear=steady duration: 60, power:95, comments: [comment("increase gear")]
+
+plusrpm=steady duration: 60, power:90, comments: [comment("+5 RPM")]
+
+interval1=interval [base,plusgear,base2,plusrpm,base3,plusrpm,base2,plusgear,base],comments: [comment("start interval",duration:5)]
+
+interval2=interval [base,plusrpm,base2,plusgear,base3,plusgear,base2,plusrpm,base], comments: [comment("start interval")]
+
+recovery=repeat(rest,3)
+
+cooldown=ramp duration: 600, start: 75, finish: 40
+
+workout([warmup,interval1,recovery,interval2,recovery,interval1,cooldown])

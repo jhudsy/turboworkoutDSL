@@ -1,0 +1,24 @@
+rest=steady duration: 60, power: 35
+
+sprint=interval [steady(duration: 20,power:150,comments:[comment("110rpm")]),
+		 steady(duration: 40,power:35)]
+
+leg=steady(duration:30,power: 40,comments:[comment("leg, 80rpm")])
+startleg=interval([leg,
+                   steady(duration: 60,power:50,comments:[comment("90+ rpm")]),
+                   leg,
+                   rest])
+
+wu=interval([ramp(duration:480,start:40,finish:80),
+                 rest,
+		 repeat(sprint,2),
+		 rest ])
+
+
+h=steady duration: 60, power: 80,comments:[comment("100rpm")]
+t=steady duration: 60, power: 85,comments:[comment("110rpm")]
+r=repeat(rest,2)
+
+set=interval([h,h,t,h,h,t,h,h,t,h,h])
+
+workout([wu,startleg,set,r,set,r,set,ramp(duration:600,start:70,finish:40)])
