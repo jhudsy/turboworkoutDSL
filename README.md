@@ -4,7 +4,8 @@ This project allows you to create a workout in a simple language, which can then
 The language aims to be both easily understandable and compact, by allowing segments to be associated with labels, which are then reused within intervals.
 
 ## Usage
-After creating a file in the language (e.g., `workout.twd`), either paste its text into the web-interface found in the `src/web/index.html` or, if you have ruby installed on your machine, run
+After creating a file in the language (e.g., `workout.twd`), either paste its text into the web-interface found in `src/web/index.html` or, if you have ruby installed on your machine, change into the `src/ruby` directory and run
+
 ```toErg.rb workout.twd```
 
 ## The Language
