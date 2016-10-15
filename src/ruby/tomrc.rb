@@ -1,5 +1,4 @@
 #####################################################################
-#This code is provided under a creative commons licence. 
 #Author: Nir Oren (nir at jhudsy dot org)
 #Version: 0.00003 (alpha), 15/10/2016
 #
@@ -25,8 +24,10 @@
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #SOFTWARE.
 #####################################################################
+
 #####################################################################
 # A class to store comments. The +text+ will appear as the workout runs at an appropriate +time+ and for some +duration+ (both specified in seconds).
+
 class Comment
   def initialize(text,time:0,duration:10)
     @text=text
@@ -34,13 +35,15 @@ class Comment
     @duration=duration
   end
 
-#Used to turn the comment into an ERG/MRC appropriate string. Requires the +start_time+ of the section.
+  #Used to turn the comment into an ERG/MRC appropriate string. Requires the +start_time+ of the section.
   def toErg(start_time)
    return "#{start_time+@time}\t#{@text}\t#{@duration}\n"
   end
 end
+
 #####################################################################
 # A class to represent ramped poweroutput. Requires a +duration+ (in seconds), a +start+ and +finish+ level of power, and an optional set of Comment objects.
+
 class Ramp
   def initialize(duration:,start:,finish:,comments:[])
     @duration=duration
@@ -69,15 +72,19 @@ class Ramp
         return out
   end
 end
+
 #####################################################################
 # This class is a ramp which doesn't change its power
+
 class Steady < Ramp
   def initialize(duration:,power:,comments:[])
     super(duration: duration,start: power, finish: power, comments: comments)
   end
 end
+
 #####################################################################
 #This class is a collection of components - intervals, ramps and steady states.
+
 class Interval
   def initialize(components:, comments:[])
     @components=components
@@ -114,8 +121,10 @@ class Interval
         return out
   end
 end
+
 #############################################
 #The Workout is a special type of interval encapsulating the entire workout. Includes accessors for the various ERG/MRC file parameters. N.B. +power+ should be either "PERCENT" (default) or "WATTS".
+
 class Workout < Interval
 attr_accessor :version, :units, :description, :filename, :power
 
@@ -184,33 +193,44 @@ attr_accessor :version, :units, :description, :filename, :power
     return output
   end
 end
+
 #####################################################################
+
+#####################################################################
+#Below here is the actual DSL functionality - methods that instantiate the appropriate objects to represent the DSL.
+
 #Define a steady segment - creates a new Steady object.
+
 def steady(duration:,power:,comments:[])
   return Steady.new(duration:duration,power:power,comments:comments)
 end
 
 #Define a ramp segment - creates a new Ramp object.
+
 def ramp(duration:,start:,finish:,comments:[])
   return Ramp.new(duration:duration,start:start,finish:finish,comments:comments)
 end
 
 #Define an interval - creates a new Interval object. Takes an array of +components+ (Interval Ramp and Steady objects) as parameters.
+
 def interval(components,comments:[])
   return Interval.new(components:components,comments:comments)
 end
 
 #Create a new Comment object.
+
 def comment(c,time:0,duration:10)
   return Comment.new(c,time:time,duration:duration)
 end
 
 #Create a new interval by repeating +thing+ +times+ times.
+
 def repeat(thing,times)
   return Interval.new(components:[thing]*times)
 end
 
 #Creates a new Workout object.
+
 def workout(components,version: 2, units:"ENGLISH",description:"A description", filename:"blah.mrc",power:"PERCENT",comments:[])
   w=Workout.new(components:components,comments:comments,version:version,units:units,description:description,filename:filename,power:power)
   return w.toString
