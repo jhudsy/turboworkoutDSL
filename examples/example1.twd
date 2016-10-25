@@ -1,9 +1,16 @@
+#This workout consists of a warm-up, a couple of sprints, some single leg intervals 
+#(swapping every 30 seconds), and then the main set.
+#The main set consists of 3 intervals with a 2 minute rest between them.
+#each interval consists of some spins at 100rpm, and others at 110rpm.
+
 rest=steady duration: 60, power: 35
 
 sprint=interval [steady(duration: 20,power:150,comments:[comment("110rpm")]),
 		 steady(duration: 40,power:35)]
 
-leg=steady(duration:30,power: 40,comments:[comment("leg, 80rpm")])
+#This is an example of how to have a comment appear half way through an effort.
+leg=steady(duration:60,power: 40,comments:[comment("leg, 80rpm"),comment("swap leg, 80rpm",time:30)])
+
 startleg=interval([leg,
                    steady(duration: 60,power:50,comments:[comment("90+ rpm")]),
                    leg,
